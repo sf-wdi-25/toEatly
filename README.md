@@ -1,5 +1,5 @@
 
-Note: This project will be part of our lessons for **week 3**.  You can explore the code if you'd like, but please know we won't use it or go over it until week 3. 
+**Note:** This project will be part of our lessons for **week 3**.  You can explore the code if you'd like, but it is not yet in its final form for our class. Please also keep in mind we won't use it or go over it until week 3. 
 
 # toEatly
 Building a single page todo-style application
