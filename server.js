@@ -2,10 +2,11 @@
 var express = require("express"),
     app = express(),
     path = require("path"),
-    bodyParser = require("body-parser"),
-    views = path.join(process.cwd(), "views/");
+    bodyParser = require("body-parser");
 
 // CONFIG //
+// set ejs as view engine
+app.set('view engine', 'ejs');
 // serve js & css files
 app.use("/static", express.static("public"));
 // body parser config to accept all datatypes
