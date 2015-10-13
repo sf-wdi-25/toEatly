@@ -1,14 +1,13 @@
 // REQUIREMENTS //
-var express = require("express");
-var app = express();
-var path = require("path");
-var bodyParser = require("body-parser");
-var views = path.join(process.cwd(), "views/");
+var express = require("express"),
+    app = express(),
+    path = require("path"),
+    bodyParser = require("body-parser"),
+    views = path.join(process.cwd(), "views/");
 
 // CONFIG //
 // serve js & css files
 app.use("/static", express.static("public"));
-app.use("/vendor", express.static("bower_components"));
 // body parser config to accept all datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -21,7 +20,6 @@ var foods =[
   {id: 4, name: "Kale", yumminess: "meh"}
 ];
 
-// ROUTES //
-//get to root should render index.html
-
-//start server on port 3000
+app.listen(3000, function (){
+  console.log("listening on port 3000");
+});

@@ -1,24 +1,23 @@
 {
-  "name": "ajax-crud",
-  "version": "1.0.0",
-  "description": "* npm init * npm install express --save * touch index.js *",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  name: "toEatly",
+  version: "1.0.0",
+  description: "toEatly",
+  main: "index.js",
+  scripts: {
+    test: "echo "Error: no test specified" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/litterbox-sf-wdi-18/ajax-crud"
+  repository: {
+    type: "git",
+    url: "https://github.com/sf-wdi-22-23/toEatly"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/litterbox-sf-wdi-18/ajax-crud/issues"
+  author: "",
+  license: "ISC",
+  bugs: {
+    url: "https://github.com/sf-wdi-22-23/toEatly/issues"
   },
-  "homepage": "https://github.com/litterbox-sf-wdi-18/ajax-crud",
-  "dependencies": {
-    "body-parser": "^1.12.4",
-    "express": "^4.12.3",
-    "underscore": "^1.8.3"
+  homepage: "https://github.com/sf-wdi-22-23/toEatly",
+  dependencies: {
+    body-parser: "^1.14.1",
+    express: "^4.12.3"
   }
 }

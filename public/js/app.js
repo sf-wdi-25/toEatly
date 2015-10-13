@@ -1,1 +1,4 @@
-//code here
+// On page load
+$(document).ready(function(){
+  
+});
