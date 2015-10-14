@@ -1,3 +1,5 @@
+// SERVER-SIDE JAVASCRIPT
+
 // REQUIREMENTS //
 var express = require("express"),
     app = express(),
@@ -9,7 +11,7 @@ var express = require("express"),
 app.set('view engine', 'ejs');
 // serve js & css files
 app.use("/static", express.static("public"));
-// body parser config to accept all datatypes
+// body parser config to accept our datatypes
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // DATA //
