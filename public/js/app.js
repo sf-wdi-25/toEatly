@@ -45,9 +45,13 @@ function deleteFood(context) {
   });
 }
 
-function makeHTMLString(food) {
-  return "<li class='list-group-item'>" + food.name + 
-    " <span class='label label-default'>"+food.yumminess+"</span>" +
-    "<button data-id="+food.id+" type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button>" +
-    "</li>";
+
+function makeHTMLString(food){
+  return '<li class="list-group-item"><h4 class="list-group-item-heading">' + food.name +
+  '</h4><span class="list-group-item-text">' + food.yumminess + '</span>' +
+  '<button data-id='+ food.id + ' type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+  '</li>';
 }
+
+
+

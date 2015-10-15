@@ -8,6 +8,8 @@ var express = require("express"),
 
 var where = require("./utils/where");
 
+var db = require('./models');
+
 // CONFIG //
 // set ejs as view engine
 app.set('view engine', 'ejs');
@@ -31,10 +33,16 @@ app.get("/", function (req, res){
   res.render('index', {foods: foods});
 });
 
-// api route to get all foods (we don't use)
+// api route to get all foods (sanity check)
 app.get("/api/foods", function (req, res){
-  // send foods data as JSON
-  res.json(foods);
+ // get foods from Mongo db
+ db.Food.find({}, function(err, foods_list){
+    if (err) {
+      console.log("Error: Could not find Food db: " + err);
+      return res.sendStatus(400);
+    }
+    res.send(foods);
+  });
 });
 
 // api route to create new food
