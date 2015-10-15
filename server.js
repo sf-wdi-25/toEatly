@@ -73,12 +73,13 @@ app.post("/api/foods", function (req, res){
 // api route to delete a food
 app.delete("/api/foods/:id", function (req, res){
   // set the value of the id
-  var targetId = parseInt(req.params._id);
+  var targetId = req.params.id;
 
-  console.log(targetId);
+  console.log(targetId); // TO FIX: Currently returns Null, NaN or undefined...
 
   db.Food.findOneAndRemove({_id:targetId}, function(err, deletedFood){
-      res.send(deletedFood);
+    console.log(deletedFood + " removed");
+    res.send(deletedFood);
    });
   // res.render('index', {foods: foods});
 
