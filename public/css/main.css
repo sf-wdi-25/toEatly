@@ -1,5 +1,9 @@
 /* Custom CSS */
 
+input {
+	margin: 0.5em 0;
+}
+
 .btn-primary {
-	margin: 1em 0;
+	margin-bottom: 1em;
 }

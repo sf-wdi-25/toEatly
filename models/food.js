@@ -7,7 +7,7 @@ var FoodSchema = new Schema({
     	type: String,
     	require: true
     },
-    yuminess: {
+    yumminess: {
     	type: String,
     	require: true
     }
