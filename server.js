@@ -4,7 +4,8 @@
 var express = require("express"),
     app = express(),
     path = require("path"),
-    bodyParser = require("body-parser");
+    bodyParser = require("body-parser"),
+    mongoose = require('mongoose');
 
 var where = require("./utils/where");
 
@@ -39,14 +40,8 @@ app.get("/", function (req, res){
 
 // api route to get all foods (sanity check)
 app.get("/api/foods", function (req, res){
-  console.log('get happens');
-    var foods = db.Food.find();
- // get foods from Mongo db
- db.Food.find({}, function(err, foods){
-    if (err) {
-      console.log("Error: Could not find Food db: " + err);
-      return res.sendStatus(400);
-    }
+ // get foods from db
+ db.Food.find(function(err, foods){
     res.send(foods);
   });
 });
@@ -54,12 +49,13 @@ app.get("/api/foods", function (req, res){
 // api route to create new food
 app.post("/api/foods", function (req, res){
   var newFood = req.body;
-   console.log(newFood);  
+   console.log(newFood);
+
   db.Food.create(newFood, function(err, food){
     if (err) { return console.log(err); }
     console.log("created ", food.name);
     res.json(food);
-    process.exit();
+    // process.exit();
 });
 
   // add a unique _id
@@ -75,12 +71,17 @@ app.post("/api/foods", function (req, res){
 });
 
 // api route to delete a food
-app.delete("/api/foods/:_id", function (req, res){
-  var food = req.body;
-  db.Food.find({_id:req.params.id}).remove().exec();
-  // res.render('index', {foods: foods});
+app.delete("/api/foods/:id", function (req, res){
   // set the value of the id
-  // var targetId = parseInt(req.params._id);
+  var targetId = parseInt(req.params._id);
+
+  console.log(targetId);
+
+  db.Food.findOneAndRemove({_id:targetId}, function(err, deletedFood){
+      res.send(deletedFood);
+   });
+  // res.render('index', {foods: foods});
+
   // find item in the array matching the id
   // var targetItem = where(foods, {_id: targetId});
   // get the index of the found item
