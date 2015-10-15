@@ -100,7 +100,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var FoodSchema = new Schema({
     name: String,
-    yuminess: String
+    yumminess: String
 });
 ```
 
