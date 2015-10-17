@@ -5,7 +5,7 @@ var express = require("express"),
     app = express(),
     path = require("path"),
     bodyParser = require("body-parser"),
-    mongoose = require('mongoose');
+    mongoose = require("mongoose");
 
 var where = require("./utils/where");
 
@@ -32,10 +32,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // ROUTES //
 app.get("/", function (req, res){
   db.Food.find().exec(function(err, foods){
-     res.render('index', {foods: foods});
+     if (err) { return console.log("find error: " + err); }
+     res.render("index", {foods: foods});
   });
   // render index.html and send with foods data filled in
-  // res.render('index', {foods: foods});
+  // res.render("index", {foods: foods});
 });
 
 // api route to get all foods (sanity check)
@@ -52,17 +53,17 @@ app.post("/api/foods", function (req, res){
    console.log(newFood);
 
   db.Food.create(newFood, function(err, food){
-    if (err) { return console.log(err); }
-    console.log("created ", food.name);
+    if (err) { return console.log("create error: " + err); }
+    console.log("created ", food.name, food.yumminess);
     res.json(food);
     // process.exit();
 });
 
   // add a unique _id
   // if (foods.length !== 0){
-	 //  newFood._id = foods[foods.length - 1]._id + 1;
+   //  newFood._id = foods[foods.length - 1]._id + 1;
   // } else {
-  // 	newFood._id = 0;
+  //  newFood._id = 0;
   // }
   // add new food to DB (which, in this case, is an array)
   // foods.push(newFood);
@@ -78,6 +79,7 @@ app.delete("/api/foods/:id", function (req, res){
   console.log(targetId); // TO FIX: Currently returns Null, NaN or undefined...
 
   db.Food.findOneAndRemove({_id:targetId}, function(err, deletedFood){
+    if (err) { return console.log("delete error: " + err); }
     console.log(deletedFood + " removed");
     res.send(deletedFood);
    });

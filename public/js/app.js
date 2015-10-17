@@ -34,8 +34,7 @@ function pageLoad() {
 function deleteFood(context) {
   console.log('context in deleteFood: ', context);
   // context is the button that was clicked
-  var foodId = $(context).attr("data-id");
-  console.log(foodId);
+  var foodId = $(context).data().id;
   $.ajax({
     url: '/api/foods/' + foodId,
     type: 'DELETE',
