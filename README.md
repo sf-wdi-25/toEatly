@@ -1,33 +1,36 @@
 # toEatly with Mongoose
-Can you modify this CRUD app to use MongoDB?
 
-##First things first:  Install Party!
+## Instructions
+Earlier we built an Express app using hard-coded data, without a database. The data lives in active memory, so when the server restarts, we lose any changes to our data.
 
-We need to use brew to [install](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/) our new **MongoDB** database system!
+Your goal is integrate MongoDB into your routes so that you can permenantely save and persist data across sessions.
 
-From the console:
+The master branch of this repo gives us the state of code at the end of Sprint three.
+
+
+##Step 0:  Install MongoDB and mongoose
+
+We need to use brew to [install](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/) our new **MongoDB** database system. We start by updating brew, just in case anything has changed. From the console:
 
 ```bash
+brew update
+
 brew install mongodb
 ```
 
-Now we need to create a directory for **MongoDB** to save and store data.
-
-From the console: 
+Now we need to create a directory on our hard drive for **MongoDB** to save and store data. From the console: 
 
 ```bash
 sudo mkdir -p /data/db
 ```
 
-Let's ensure that the folder permissions allow us to read and write to our newly made directory.
-
-From the console:
+We need to change ownership (`chown`) of this database folder to set permissions for our user to read and write to our newly made data directories. From the console:
 
 ```bash
-sudo chown -R $USER	/data/db
+sudo chown -R $USER /data/db
 ```
 
-You may also want to do a global install of [nodemon](http://nodemon.io). Nodemon automatically restarts our server when we make any changes in our source code.
+We are also going to do a global install of [nodemon](http://nodemon.io). This is an optional step, but `nodemon` automatically restarts our server when we make any changes in our source code.
 
 ```bash
 npm install -g nodemon
@@ -35,53 +38,33 @@ npm install -g nodemon
 
 ## Project Setup
 
-Install application packages/dependencies:
+If you aren't there already, change directory to your project. Since a new clone Now let's install our new application packages/dependencies:
 
 ```bash
 npm install
 ```
 
-Run the server:
-
-```bash
-mongod
-nodemon index.js
-```
-
-## Instructions
-
-Our foods data is currently hardcoded in `server.js` and lives in active memory. When the server restarts, we lose our data. Your goal is integrate MongoDB into your routes so that you can permenantely save/persist data across sessions.
-
-By the end of this process we should have the following application directory (note the `models` folder):
-
-```
-    models/
-        index.js
-        food.js
-    public/
-        css/
-            main.css
-        js/
-            app.js
-    views/
-        index.html
-    .gitignore
-    server.js
-    package.json
-    README.md    
-```
-
-**NOTE:**
-One important difference between the `toEatly_mongoose` project and the original toEatly project is that we have globally changed `foods.id` to `foods._id` because of a strict naming convention in `mongoose`
-
-
-#### Step 1. Create the Food Model / Schema
-
-Install `mongoose` inside our project directory:
+Finally, install `mongoose` inside our project directory:
 
 ``` bash
 npm install --save mongoose
 ```
+
+Now we are ready to turn on our MongoDB database engine:
+
+```bash
+mongod
+```
+
+You need to leave this process running while you develop. In Mac Terminal, press `command T` to open a new tab at the same directory.
+
+Now let's fire up the server!
+
+```bash
+nodemon
+```
+
+#### Step 1. Create the Food Model / Schema
 
 Next we want to create our models directory (this is where our database magic will happen):
 
@@ -100,7 +83,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var FoodSchema = new Schema({
     name: String,
-    yumminess: String
+    yuminess: String
 });
 ```
 
@@ -153,14 +136,15 @@ Now you should be able to type the following, and see our new food item:
     })
 ```
 
-If this does not work, the solutions branch includes a more complete `seed.js` file which you can copy and run from the CLI:
+There should be a considerable amount of output.
+
+If this did not work, the solutions branch includes a more complete `seed.js` file which you can copy and run from the CLI:
 
 ```bash
-
 node seed.js
 ```
 
-**Now let's do it in the express app!**
+**Now let's do the same thing in the Express app!**
 
 #### Step 3. Plug the database into express
 
@@ -176,7 +160,7 @@ The time has come for us to swap out all our hardcoded data for live data from o
 
 Hint: Here's what our index route might look like:
 
-``` javascript
+``` js
 app.get("/allthefoods", function(req, res){
 
     db.Food.find({}, function(err, foods){
@@ -189,4 +173,9 @@ app.get("/allthefoods", function(req, res){
 
 })
 ```
+
+*NOTE: You will need to change `foods.id` to `foods._id` because of a strict naming convention in `mongoose`.*
+
+
+
 
