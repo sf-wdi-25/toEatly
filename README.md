@@ -5,13 +5,13 @@
 Clone this repo:
 
 ```bash
-git clone https://github.com/benhulan/toEatly_mongoose.git
+git clone [fill in the clone URL!]
 ```
 
 Change directories into your new project folder:
 
 ```bash
-cd toEatly_mongoose
+cd toEatly
 ```
 
 If you type ` git checkout live_code` it won't work because you don't have all the branches. You need to fetch them:
