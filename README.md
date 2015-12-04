@@ -14,7 +14,7 @@ Change directories into your new project folder:
 cd toEatly
 ```
 
-If you type ` git checkout live_code` it won't work because you don't have all the branches. You need to fetch them:
+If you type ` git checkout live_code` it should work, but if it doesn't, you'll need to fetch all the branches with:
 
 ```
 git fetch --all
