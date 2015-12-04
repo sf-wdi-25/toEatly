@@ -27,3 +27,4 @@ git checkout live_code
 
 Now you are on the `live_code` branch. You also have the solution branch, which you can access with `git checkout solution`
 
+Continue to follow the instructions on the README.md of `live_code`
