@@ -3,13 +3,14 @@
 ## Instructions
 Earlier we built an Express app using hard-coded data, without a database. The data lives in active memory, so when the server restarts, we lose any changes to our data.
 
-Your goal is integrate MongoDB into your routes so that you can permenantely save and persist data across sessions.
+Your goal is integrate MongoDB into your routes so that you can permanently save and persist data across sessions.
 
 The master branch of this repo gives us the state of code at the end of Sprint three.
 
 
 ##Step 0:  Install MongoDB and mongoose
 
+<detail><summary>You've probably already done this, but if not click here.</summary>
 We need to use brew to [install](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-os-x/) our new **MongoDB** database system. We start by updating brew, just in case anything has changed. From the console:
 
 ```bash
@@ -18,7 +19,7 @@ brew update
 brew install mongodb
 ```
 
-Now we need to create a directory on our hard drive for **MongoDB** to save and store data. From the console: 
+Now we need to create a directory on our hard drive for **MongoDB** to save and store data. From the console:
 
 ```bash
 sudo mkdir -p /data/db
@@ -35,16 +36,17 @@ We are also going to do a global install of [nodemon](http://nodemon.io). This i
 ```bash
 npm install -g nodemon
 ```
+</detail>
 
 ## Project Setup
 
-If you aren't there already, change directory to your project. Since a new clone Now let's install our new application packages/dependencies:
+If you aren't there already, change directory to your project. If you look in `package.json` you'll see that a couple of dependencies are already defined.  Let's use `npm` to install those into node_modules.
 
 ```bash
 npm install
 ```
 
-Finally, install `mongoose` inside our project directory:
+Next, let's add a new dependency, `mongoose` inside our project directory:
 
 ``` bash
 npm install --save mongoose
@@ -56,9 +58,9 @@ Now we are ready to turn on our MongoDB database engine:
 mongod
 ```
 
-You need to leave this process running while you develop. In Mac Terminal, press `command T` to open a new tab at the same directory.
+You need to leave this process running while you develop. In Mac Terminal, press `command T` to open a new tab.  You may need to `cd` to the correct directory.
 
-Now let's fire up the server!
+Then, let's fire up the server!
 
 ```bash
 nodemon
@@ -70,12 +72,21 @@ Next we want to create our models directory (this is where our database magic wi
 
 ``` bash
 mkdir models
+```
+
+Let's create a `Food` model. A `Food` has a few different characteristics: `name`, and `yumminess`.
+
+```bash
 touch models/food.js
 ```
 
-Let's create `Food` model. A `Food` has a few different characteristics: `name`, and `yumminess`.
+To create a `Food` model we have to setup a Schema in `models/food.js`.  We want to produce `Food` instances that look like:
 
-To create a `Food` model we have to use a Schema in `models/food.js`
+```js
+{ _id: '0', name: 'candied ginger', yumminess: 'nice' }
+```
+
+So in our `models/food.js` we'll setup a schema like:
 
 ```js
 var mongoose = require("mongoose");
@@ -83,7 +94,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var FoodSchema = new Schema({
     name: String,
-    yuminess: String
+    yumminess: String
 });
 ```
 
@@ -108,7 +119,11 @@ Inside of `models/index.js` we need to create and connect to our mongoose databa
 ``` javascript
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/to_eatly_app");
+```
 
+We also want to require each model and export them in `index.js` so that they are available when we require `index.js`.
+
+```js
 module.exports.Food = require("./food");
 ```
 
@@ -161,7 +176,7 @@ The time has come for us to swap out all our hardcoded data for live data from o
 Hint: Here's what our index route might look like:
 
 ``` js
-app.get("/allthefoods", function(req, res){
+app.get("/api/foods", function(req, res){
 
     db.Food.find({}, function(err, foods){
         if (err) {
@@ -175,7 +190,3 @@ app.get("/allthefoods", function(req, res){
 ```
 
 *NOTE: You will need to change `foods.id` to `foods._id` because of a strict naming convention in `mongoose`.*
-
-
-
-
